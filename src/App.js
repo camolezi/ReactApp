@@ -1,24 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
+import PostView from "./Views/PostView.js";
+import HomePostsView from "./Views/HomePostsView.js";
+import NavBar from "./Components/Navbar.js";
+import SingUpView from "./Views/SignUpView.js";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  //offset: theme.mixins.toolbar,
+  offset: theme.mixins.toolbar,
+}));
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <NavBar />
+        <div className={classes.offset} />
+
+        <Switch>
+          {
+            //Application routes
+          }
+
+          <Route exact path="/">
+            <Redirect to="/post" />
+          </Route>
+
+          <Route exact path="/login">
+            LOGIN
+          </Route>
+
+          <Route exact path="/signup">
+            <SingUpView />
+          </Route>
+
+          <Route exact path="/post">
+            <HomePostsView />
+          </Route>
+
+          <Route exact path="/post/:id">
+            <PostView />
+          </Route>
+
+          <Route>ERROR</Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

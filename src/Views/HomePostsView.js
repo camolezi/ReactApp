@@ -3,7 +3,7 @@ import Post from "../Components/Post.js";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Card } from "@material-ui/core";
+import { Grid, CircularProgress, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +21,20 @@ const useStyles = makeStyles((theme) => ({
   },
   itemGrid: {
     boxSizing: "border-box",
+  },
+
+  loadingCircle: {
+    flexGrow: 1,
+    padding: theme.spacing(2),
+  },
+
+  loadingContainer: {
+    paddingTop: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    flexDirection: "column",
   },
 }));
 
@@ -72,7 +86,11 @@ function HomePostsView(props) {
     );
   } else {
     //Can put a load image here
-    returnJSX = <h1>Loading</h1>;
+    returnJSX = (
+      <Container maxWidth="xs" className={classes.loadingContainer}>
+        <CircularProgress className={classes.loadingCircle} />
+      </Container>
+    );
   }
   return returnJSX;
 }

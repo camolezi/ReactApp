@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Grid, TextField, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import JSONForm from "../Components/JSONForm.js";
+
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
 
@@ -16,117 +18,88 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//View form the signUp page
 function SignUpView(props) {
   const classes = useStyles();
   const [formState, setFormState] = useState({});
 
-  //For now this will be here, maybe we can abstract away
-  function submitForm(e) {
-    e.preventDefault();
+  let SignUpForm = (
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="stretch"
+      alignContent="center"
+      spacing={2}
+      className={classes.gridCointainer}
+    >
+      <Grid item className={classes.gridItem} xs={12}>
+        <TextField
+          required
+          fullWidth
+          autoFocus={true}
+          name="login"
+          id="usernameField"
+          label="Username"
+          variant="outlined"
+        />
+      </Grid>
 
-    console.log(JSON.stringify(formState));
+      <Grid item className={classes.gridItem} xs={12}>
+        <TextField
+          fullWidth
+          type="email"
+          name="email"
+          id="emailField"
+          label="Email"
+          variant="outlined"
+        />
+      </Grid>
 
-    //submit-form
-    fetch("/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formState),
-    })
-      .then((response) => {
-        console.log("Success:", response);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+      <Grid item className={classes.gridItem} xs={12}>
+        <TextField
+          required
+          fullWidth
+          type="password"
+          name="password"
+          id="passwordField"
+          label="Password"
+          variant="outlined"
+        />
+      </Grid>
 
-  function changedForm(e) {
-    //Update state
-    let newState = formState;
-    newState[e.target.name] = e.target.value;
-    setFormState(newState);
-  }
+      <Grid item className={classes.gridItem} xs={12}>
+        <TextField
+          fullWidth
+          type="password"
+          id="passwordConfirmField"
+          label="Confirm password"
+          variant="outlined"
+        />
+      </Grid>
+
+      <Grid item className={classes.gridItem} xs={12}></Grid>
+
+      <Grid item className={classes.gridItem} xs={12}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          SUBMIT
+        </Button>
+      </Grid>
+    </Grid>
+  );
 
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
-        <form
-          id="signUpForm"
-          autoComplete="off"
-          onChange={changedForm}
-          onSubmit={submitForm}
-        >
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="stretch"
-            alignContent="center"
-            spacing={2}
-            className={classes.gridCointainer}
-          >
-            <Grid item className={classes.gridItem} xs={12}>
-              <TextField
-                required
-                fullWidth
-                autoFocus={true}
-                name="login"
-                id="usernameField"
-                label="Username"
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item className={classes.gridItem} xs={12}>
-              <TextField
-                fullWidth
-                type="email"
-                name="email"
-                id="emailField"
-                label="Email"
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item className={classes.gridItem} xs={12}>
-              <TextField
-                required
-                fullWidth
-                type="password"
-                name="password"
-                id="passwordField"
-                label="Password"
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item className={classes.gridItem} xs={12}>
-              <TextField
-                fullWidth
-                type="password"
-                id="passwordConfirmField"
-                label="Confirm password"
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item className={classes.gridItem} xs={12}></Grid>
-
-            <Grid item className={classes.gridItem} xs={12}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                SUBMIT
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+        <JSONForm id="signUpForm" url="/user">
+          {SignUpForm}
+        </JSONForm>
       </div>
     </Container>
   );

@@ -6,9 +6,10 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import NavBar from "./Components/Navbar.js";
+
 import PostView from "./Views/PostView.js";
 import HomePostsView from "./Views/HomePostsView.js";
-import NavBar from "./Components/Navbar.js";
 import SingUpView from "./Views/SignUpView.js";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,6 +26,10 @@ function App() {
         <NavBar />
         <div className={classes.offset} />
 
+        {
+          //Dialog Windows
+        }
+
         <Switch>
           {
             //Application routes
@@ -32,10 +37,6 @@ function App() {
 
           <Route exact path="/">
             <Redirect to="/post" />
-          </Route>
-
-          <Route exact path="/login">
-            LOGIN
           </Route>
 
           <Route exact path="/signup">

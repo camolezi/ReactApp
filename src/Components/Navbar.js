@@ -6,11 +6,13 @@ import {
   IconButton,
   Button,
   Typography,
+  Link,
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
+import LoginView from "../Views/LoginView.js";
 
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  linkTitle: {
+    color: "inherit",
+    textDecoration: "none",
   },
 }));
 
@@ -40,14 +46,14 @@ function NavBar(props) {
         </IconButton>
 
         <Typography variant="h6" className={classes.title}>
-          PlaceHolder
+          <RouterLink to="/" className={classes.linkTitle}>
+            PlaceHolder
+          </RouterLink>
         </Typography>
 
-        <Button color="inherit" component={Link} to="/login">
-          LOG IN
-        </Button>
+        <LoginView />
 
-        <Button color="inherit" component={Link} to="/signup">
+        <Button color="inherit" component={RouterLink} to="/signup">
           SIGN UP
         </Button>
       </Toolbar>

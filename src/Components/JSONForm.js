@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 
-//This component abstract a basic form with http post json request capabilities
-function PostForm(props) {
+/*
+This component abstract a basic form with http post json request capabilities
+Usage:
+  Props:
+    id:string
+    url:string - url to send the JSON post request
+    children - JSX to be renderer inside the forms- buttons and texts inputs etc..
+
+*/
+function JSONForm(props) {
   const [formState, setFormState] = useState({});
 
   function submitForm(e) {
@@ -10,7 +18,7 @@ function PostForm(props) {
     console.log(JSON.stringify(formState));
 
     //submit-form
-    fetch("/user", {
+    fetch(props.url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,8 +26,12 @@ function PostForm(props) {
       body: JSON.stringify(formState),
     })
       .then((response) => {
-        console.log("Success:", response);
+        return response.text();
       })
+      .then((text) => {
+        console.log(text);
+      })
+
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -33,8 +45,10 @@ function PostForm(props) {
   }
 
   return (
-    <form id={props.formId} onChange={changedForm} onSubmit={submitForm}></form>
+    <form id={props.formId} onChange={changedForm} onSubmit={submitForm}>
+      {props.children}
+    </form>
   );
 }
 
-export default PostForm;
+export default JSONForm;

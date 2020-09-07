@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, TextField, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,12 +18,46 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUpView(props) {
   const classes = useStyles();
-  //npm install prettier -D --save-exact
+  const [formState, setFormState] = useState({});
+
+  //For now this will be here, maybe we can abstract away
+  function submitForm(e) {
+    e.preventDefault();
+
+    console.log(JSON.stringify(formState));
+
+    //submit-form
+    fetch("/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formState),
+    })
+      .then((response) => {
+        console.log("Success:", response);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  function changedForm(e) {
+    //Update state
+    let newState = formState;
+    newState[e.target.name] = e.target.value;
+    setFormState(newState);
+  }
 
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
-        <form id="signUpForm" autoComplete="off" method="post" action="/user">
+        <form
+          id="signUpForm"
+          autoComplete="off"
+          onChange={changedForm}
+          onSubmit={submitForm}
+        >
           <Grid
             container
             direction="row"
@@ -37,7 +71,7 @@ function SignUpView(props) {
               <TextField
                 required
                 fullWidth
-                autoFocus="true"
+                autoFocus={true}
                 name="login"
                 id="usernameField"
                 label="Username"

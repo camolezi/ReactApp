@@ -14,7 +14,6 @@ import SingUpView from "./Views/SignUpView.js";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  //offset: theme.mixins.toolbar,
   offset: theme.mixins.toolbar,
 }));
 

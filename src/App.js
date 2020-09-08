@@ -7,10 +7,12 @@ import {
 } from "react-router-dom";
 
 import NavBar from "./Components/Navbar.js";
+import EditPostFloatingButton from "./Components/EditPostFloatingButton.js";
 
 import PostView from "./Views/PostView.js";
 import HomePostsView from "./Views/HomePostsView.js";
 import SingUpView from "./Views/SignUpView.js";
+import CreatePostView from "./Views/CreatePostView.js";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -43,7 +45,12 @@ function App() {
             <SingUpView />
           </Route>
 
+          <Route exact path="/post/create">
+            <CreatePostView />
+          </Route>
+
           <Route exact path="/post">
+            <EditPostFloatingButton to="/post/create" />
             <HomePostsView />
           </Route>
 
@@ -51,7 +58,7 @@ function App() {
             <PostView />
           </Route>
 
-          <Route>ERROR</Route>
+          <Route>Resource not found</Route>
         </Switch>
       </Router>
     </div>

@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
-import LoginView from "../Views/LoginView.js";
+import LoginView from "../Views/ModalViews/LoginView.js";
 
 import { Link as RouterLink } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PostForm from "./PostForm.js";
+import PostForm from "./JSONForm.js";
 
 import { Link } from "react-router-dom";
 

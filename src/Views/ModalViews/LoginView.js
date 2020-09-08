@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import JSONForm from "../Components/JSONForm.js";
+import JSONForm from "../../Components/JSONForm.js";
 
 import { Link as RouterLink } from "react-router-dom";
 

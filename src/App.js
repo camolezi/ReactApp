@@ -28,10 +28,6 @@ function App() {
         <NavBar />
         <div className={classes.offset} />
 
-        {
-          //Dialog Windows
-        }
-
         <Switch>
           {
             //Application routes

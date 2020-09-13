@@ -9,7 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   addPostIcon: {
     position: "fixed",
-    left: "50%",
+    left: "50%", //Rethink this latter
     bottom: "2%",
     textAlign: "center",
     zIndex: 1,

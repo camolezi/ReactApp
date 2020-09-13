@@ -28,7 +28,7 @@ function Post(props) {
             askjdahsjkdhsstretch
           </Typography>
           <Typography color="textSecondary" gutterBottom>
-            {props.body.text}
+            {props.body}
           </Typography>
         </CardContent>
       </CardActionArea>

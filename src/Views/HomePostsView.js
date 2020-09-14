@@ -64,10 +64,12 @@ function HomePostsView(props) {
     ));
 
     //Just for testing
+    /*
     postsComponents.forEach((element) => {
       postsComponents.push(element);
       postsComponents.push(element);
     });
+    */
 
     returnJSX = (
       <div className={classes.root}>

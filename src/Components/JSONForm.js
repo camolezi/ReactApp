@@ -31,17 +31,16 @@ function JSONForm(props) {
       .then((text) => {
         console.log(text);
       })
-
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    props.afterSubmit();
   }
 
   function changedForm(e) {
     //Update state
-    let newState = formState;
-    newState[e.target.name] = e.target.value;
-    setFormState(newState);
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   }
 
   return (

@@ -3,6 +3,10 @@ import { Grid, TextField, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import JSONForm from "../Components/JSONForm.js";
+import {
+  useFormValidation,
+  useValidationProps,
+} from "../Hooks/useFormValidation.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
@@ -21,7 +25,37 @@ const useStyles = makeStyles((theme) => ({
 //View form the signUp page
 function SignUpView(props) {
   const classes = useStyles();
-  const [formState, setFormState] = useState({});
+
+  const id_username = "usernameField";
+  const id_email = "emailField";
+  const id_password = "passwordField";
+  const id_passwordConfirmation = "passwordConfirmField";
+
+  const validationObject = {
+    [id_username]: (text) => {
+      return "";
+    },
+    [id_email]: (text) => {
+      if (text == "abc") {
+        return "This is a eroor";
+      }
+      return "";
+    },
+    [id_password]: (text) => {
+      if (text == "abc") {
+        return "This is a eroor";
+      }
+      return "";
+    },
+    [id_passwordConfirmation]: (text) => {
+      if (text == "abc") {
+        return "This is a eroor";
+      }
+      return "";
+    },
+  };
+
+  const validationProps = useValidationProps(validationObject);
 
   let SignUpForm = (
     <Grid
@@ -35,36 +69,39 @@ function SignUpView(props) {
     >
       <Grid item className={classes.gridItem} xs={12}>
         <TextField
+          name="login"
           required
           fullWidth
           autoFocus={true}
-          name="login"
-          id="usernameField"
           label="Username"
           variant="outlined"
+          id={id_username}
+          {...validationProps(id_username)}
         />
       </Grid>
 
       <Grid item className={classes.gridItem} xs={12}>
         <TextField
+          name="email"
           fullWidth
           type="email"
-          name="email"
-          id="emailField"
           label="Email"
           variant="outlined"
+          id={id_email}
+          {...validationProps(id_email)}
         />
       </Grid>
 
       <Grid item className={classes.gridItem} xs={12}>
         <TextField
+          name="password"
           required
           fullWidth
           type="password"
-          name="password"
-          id="passwordField"
           label="Password"
           variant="outlined"
+          id={id_password}
+          {...validationProps(id_password)}
         />
       </Grid>
 
@@ -72,9 +109,10 @@ function SignUpView(props) {
         <TextField
           fullWidth
           type="password"
-          id="passwordConfirmField"
           label="Confirm password"
           variant="outlined"
+          id={id_passwordConfirmation}
+          {...validationProps(id_passwordConfirmation)}
         />
       </Grid>
 
@@ -97,7 +135,11 @@ function SignUpView(props) {
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
-        <JSONForm id="signUpForm" url="/user">
+        <JSONForm
+          id="signUpForm"
+          url="/user"
+          afterSubmit={() => console.log("Callback")}
+        >
           {SignUpForm}
         </JSONForm>
       </div>

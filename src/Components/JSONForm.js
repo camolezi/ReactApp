@@ -7,6 +7,7 @@ Usage:
     id:string
     url:string - url to send the JSON post request
     children - JSX to be renderer inside the forms- buttons and texts inputs etc..
+    afterSumbit - callback called when the forms in submitted
 
 */
 function JSONForm(props) {

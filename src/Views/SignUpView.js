@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import JSONForm from "../Components/JSONForm.js";
 import {
   useFormValidation,
-  useValidationProps,
+  useValidationPropsTextField,
 } from "../Hooks/useFormValidation.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,9 +55,11 @@ function SignUpView(props) {
     },
   };
 
-  const validationProps = useValidationProps(validationObject);
+  const [validationProps, buttonProps] = useValidationPropsTextField(
+    validationObject
+  );
 
-  let SignUpForm = (
+  const SignUpForm = (
     <Grid
       container
       direction="row"
@@ -125,6 +127,7 @@ function SignUpView(props) {
           variant="contained"
           color="primary"
           size="large"
+          {...buttonProps}
         >
           SUBMIT
         </Button>

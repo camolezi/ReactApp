@@ -3,10 +3,7 @@ import { Grid, TextField, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import JSONForm from "../Components/JSONForm.js";
-import {
-  useFormValidation,
-  useValidationPropsTextField,
-} from "../Hooks/useFormValidation.js";
+import { useValidationPropsTextField } from "../Hooks/useFormValidation.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
@@ -31,26 +28,25 @@ function SignUpView(props) {
   const id_password = "passwordField";
   const id_passwordConfirmation = "passwordConfirmField";
 
+  const [passwordValue, setPasswordValue] = useState("");
+
   const validationObject = {
     [id_username]: (text) => {
+      if (text.length < 5) return "Login must have more than 5 characters";
       return "";
     },
     [id_email]: (text) => {
-      if (text == "abc") {
-        return "This is a eroor";
-      }
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(text)) return "Please type a valid email";
       return "";
     },
     [id_password]: (text) => {
-      if (text == "abc") {
-        return "This is a eroor";
-      }
+      setPasswordValue(text);
+      if (text.length < 8) return "Password must have more than 8 characters";
       return "";
     },
     [id_passwordConfirmation]: (text) => {
-      if (text == "abc") {
-        return "This is a eroor";
-      }
+      if (text !== passwordValue) return "Passwords are not equal";
       return "";
     },
   };
@@ -85,6 +81,7 @@ function SignUpView(props) {
       <Grid item className={classes.gridItem} xs={12}>
         <TextField
           name="email"
+          required
           fullWidth
           type="email"
           label="Email"
@@ -110,6 +107,7 @@ function SignUpView(props) {
       <Grid item className={classes.gridItem} xs={12}>
         <TextField
           fullWidth
+          required
           type="password"
           label="Confirm password"
           variant="outlined"

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import JSONForm from "../Components/JSONForm.js";
 import { useValidationPropsTextField } from "../Hooks/useFormValidation.js";
+import LoadingCircle from "../Components/LoadingCircle.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function SignUpView(props) {
   const classes = useStyles();
 
+  //Id for text input fields
   const id_username = "usernameField";
   const id_email = "emailField";
   const id_password = "passwordField";
@@ -133,17 +135,21 @@ function SignUpView(props) {
     </Grid>
   );
 
+  const [submitted, setSubmitted] = useState(false);
+
   return (
-    <Container maxWidth="sm">
-      <div className={classes.root}>
+    <Container className={classes.root} maxWidth="sm">
+      {submitted ? (
+        <h1>Sumitted</h1>
+      ) : (
         <JSONForm
           id="signUpForm"
           url="/user"
-          afterSubmit={() => console.log("Callback")}
+          afterSubmit={() => setSubmitted(true)}
         >
           {SignUpForm}
         </JSONForm>
-      </div>
+      )}
     </Container>
   );
 }

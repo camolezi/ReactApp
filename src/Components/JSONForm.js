@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LoadingCircle from "../Components/LoadingCircle.js";
 
 /*
 This component abstract a basic form with http post json request capabilities
@@ -12,11 +13,14 @@ Usage:
 */
 function JSONForm(props) {
   const [formState, setFormState] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   function submitForm(e) {
     e.preventDefault();
 
     console.log(JSON.stringify(formState));
+
+    setSubmitted(true);
 
     //submit-form
     fetch(props.url, {
@@ -30,13 +34,12 @@ function JSONForm(props) {
         return response.text();
       })
       .then((text) => {
+        props.afterSubmit();
         console.log(text);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    props.afterSubmit();
   }
 
   function changedForm(e) {
@@ -46,7 +49,7 @@ function JSONForm(props) {
 
   return (
     <form id={props.formId} onChange={changedForm} onSubmit={submitForm}>
-      {props.children}
+      {submitted ? <LoadingCircle /> : props.children}
     </form>
   );
 }

@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, Container } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  Button,
+  Container,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import JSONForm from "../Components/JSONForm.js";
 import { useValidationPropsTextField } from "../Hooks/useFormValidation.js";
-import LoadingCircle from "../Components/LoadingCircle.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
@@ -140,12 +145,14 @@ function SignUpView(props) {
   return (
     <Container className={classes.root} maxWidth="sm">
       {submitted ? (
-        <h1>Sumitted</h1>
+        <Typography align="center" variant="h2">
+          Account created, welcome!
+        </Typography>
       ) : (
         <JSONForm
           id="signUpForm"
           url="/user"
-          afterSubmit={() => setSubmitted(true)}
+          afterSubmit={(success) => setSubmitted(success)}
         >
           {SignUpForm}
         </JSONForm>

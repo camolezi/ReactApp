@@ -31,13 +31,17 @@ function JSONForm(props) {
       body: JSON.stringify(formState),
     })
       .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
         return response.text();
       })
       .then((text) => {
-        props.afterSubmit();
+        props.afterSubmit(true);
         console.log(text);
       })
       .catch((error) => {
+        props.afterSubmit(false);
         console.error("Error:", error);
       });
   }

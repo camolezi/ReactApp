@@ -37,7 +37,7 @@ function HomePostsView(props) {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setPosts(data))
-      .catch((err) => console.log("Error in request Json"));
+      .catch((err) => console.log("Error in request Json:" + err));
   }, [url]);
 
   //Posts loaded
@@ -50,7 +50,7 @@ function HomePostsView(props) {
       </Grid>
     ));
 
-    returnJSX = (
+    return (
       <div className={classes.root}>
         <Grid
           container
@@ -65,10 +65,8 @@ function HomePostsView(props) {
         </Grid>
       </div>
     );
-  } else {
-    returnJSX = <LoadingCircle />;
   }
-  return returnJSX;
+  return <LoadingCircle />;
 }
 
 export default HomePostsView;

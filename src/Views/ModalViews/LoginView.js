@@ -84,7 +84,7 @@ function LoginView(props) {
     </JSONForm>
   );
 
-  //Dialog is login a react findDOMNode warning. Is proprably FROM material UI component. Investigate this latter
+  //login Dialog in throwing findDOMNode warning. Its proprably FROM material UI component. Investigate this latter
   return (
     <>
       <Button color="inherit" onClick={handleClickOpen}>

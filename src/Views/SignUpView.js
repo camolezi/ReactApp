@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
-    paddingTop: "30px",
+    paddingTop: "2em",
   },
 
   gridItem: {

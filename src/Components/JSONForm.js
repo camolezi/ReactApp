@@ -37,11 +37,11 @@ function JSONForm(props) {
         return response.text();
       })
       .then((text) => {
-        props.afterSubmit(true);
+        if (props.afterSubmit) props.afterSubmit(true);
         console.log(text);
       })
       .catch((error) => {
-        props.afterSubmit(false);
+        if (props.afterSubmit) props.afterSubmit(true);
         console.error("Error:", error);
       });
   }

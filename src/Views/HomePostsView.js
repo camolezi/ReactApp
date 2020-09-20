@@ -3,13 +3,13 @@ import Post from "../Components/Post.js";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, CircularProgress, Container } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import LoadingCircle from "../Components/LoadingCircle.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    paddingTop: "30px",
+    paddingTop: "2em",
     background: "white",
   },
   card: {
@@ -43,7 +43,7 @@ function HomePostsView(props) {
   //Posts loaded
   if (posts) {
     let postsComponents = posts.map((post) => (
-      <Grid item className={classes.card} zeroMinWidth xs={12} sm={10} md={7}>
+      <Grid key={post.id} item className={classes.card} zeroMinWidth xs={12}>
         <Link to={`post/${post.id}`} className={classes.link}>
           <Post id={post.id} title={post.title} body={post.body} />
         </Link>
@@ -51,7 +51,7 @@ function HomePostsView(props) {
     ));
 
     return (
-      <div className={classes.root}>
+      <Container className={classes.root} maxWidth="md">
         <Grid
           container
           direction="row"
@@ -63,7 +63,7 @@ function HomePostsView(props) {
         >
           {postsComponents}
         </Grid>
-      </div>
+      </Container>
     );
   }
   return <LoadingCircle />;

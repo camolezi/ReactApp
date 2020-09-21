@@ -16,17 +16,12 @@ import {
 } from "@material-ui/core";
 
 //Redux store
-import {
-  selectToken,
-  selectUsername,
-  updateToken,
-  updateUsername,
-} from "../../Store/Slices/loginSlice.js";
-
+import { updateToken, updateUsername } from "../../Store/Slices/loginSlice.js";
 import { useDispatch } from "react-redux";
 
 function LoginView(props) {
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState();
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {

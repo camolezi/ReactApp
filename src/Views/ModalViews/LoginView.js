@@ -15,8 +15,19 @@ import {
   Link,
 } from "@material-ui/core";
 
+//Redux store
+import {
+  selectToken,
+  selectUsername,
+  updateToken,
+  updateUsername,
+} from "../../Store/Slices/loginSlice.js";
+
+import { useDispatch } from "react-redux";
+
 function LoginView(props) {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,7 +38,17 @@ function LoginView(props) {
   };
 
   let logInForm = (
-    <JSONForm id="logInForms" url="/login">
+    <JSONForm
+      id="logInForms"
+      url="/login"
+      afterSubmit={(ok, data) => {
+        if (ok) {
+          dispatch(updateToken(data.acessToken));
+          dispatch(updateUsername(data.login));
+          handleClose();
+        }
+      }}
+    >
       <Grid
         container
         direction="row"

@@ -34,14 +34,14 @@ function JSONForm(props) {
         if (!response.ok) {
           throw Error(response.statusText);
         }
-        return response.text();
+        return response.json();
       })
-      .then((text) => {
-        if (props.afterSubmit) props.afterSubmit(true);
-        console.log(text);
+      .then((obj) => {
+        if (props.afterSubmit) props.afterSubmit(true, obj);
+        console.log(obj);
       })
       .catch((error) => {
-        if (props.afterSubmit) props.afterSubmit(true);
+        if (props.afterSubmit) props.afterSubmit(false);
         console.error("Error:", error);
       });
   }

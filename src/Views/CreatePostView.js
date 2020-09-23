@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 
 import JSONForm from "../Components/JSONForm.js";
-import WithAuthorization from "../Components/Authorization.js";
+import WithAuthorization from "../Components/Middleware/Authorization.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},

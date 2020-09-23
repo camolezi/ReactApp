@@ -8,6 +8,7 @@ import {
 
 import NavBar from "./Components/Navbar.js";
 import EditPostFloatingButton from "./Components/EditPostFloatingButton.js";
+import WithIsLogged from "./Components/Middleware/IfLogged.js";
 
 import PostView from "./Views/PostView.js";
 import HomePostsView from "./Views/HomePostsView.js";
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+
+  const CreatePostButton = WithIsLogged(EditPostFloatingButton);
+
   return (
     <div>
       <Router>
@@ -46,7 +50,7 @@ function App() {
           </Route>
 
           <Route exact path="/post">
-            <EditPostFloatingButton to="/post/create" />
+            <CreatePostButton to="/post/create" />
             <HomePostsView />
           </Route>
 

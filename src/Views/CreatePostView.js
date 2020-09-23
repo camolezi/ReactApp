@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 
 import JSONForm from "../Components/JSONForm.js";
+import WithAuthorization from "../Components/Authorization.js";
 
 const useStyles = makeStyles((theme) => ({
   gridCointainer: {},
@@ -86,12 +87,14 @@ function CreatePostView(props) {
     </Grid>
   );
 
+  const FormWithAuth = WithAuthorization(JSONForm);
+
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
-        <JSONForm id="postForm" url="/post">
+        <FormWithAuth id="postForm" url="/post">
           {PostForm}
-        </JSONForm>
+        </FormWithAuth>
       </div>
     </Container>
   );

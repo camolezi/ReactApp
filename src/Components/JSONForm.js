@@ -21,11 +21,19 @@ function JSONForm(props) {
 
     setSubmitted(true);
 
+    let authHeaders = {};
+    if (props.login) {
+      authHeaders = {
+        Authorization: props.token,
+      };
+    }
+
     //submit-form
     fetch(props.url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...authHeaders,
       },
       body: JSON.stringify(formState),
     })

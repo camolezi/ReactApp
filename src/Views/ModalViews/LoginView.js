@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JSONForm from "../../Components/JSONForm.js";
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 
 import {
   Button,
@@ -21,7 +21,8 @@ import { useDispatch } from "react-redux";
 
 function LoginView(props) {
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState();
+  const [statusFailed, setStatusFailed] = useState(false);
+  const [finished, setFinished] = useState(false);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -38,10 +39,12 @@ function LoginView(props) {
       url="/login"
       afterSubmit={(ok, data) => {
         if (ok) {
+          setFinished(true);
           dispatch(updateToken(data.acessToken));
           dispatch(updateUsername(data.login));
-          handleClose();
+          return;
         }
+        setStatusFailed(true);
       }}
     >
       <Grid
@@ -118,6 +121,11 @@ function LoginView(props) {
             <Link component={RouterLink} to="/signup" onClick={handleClose}>
               Don't have a account?
             </Link>
+            {statusFailed && (
+              <>
+                <br /> Incorrect credentials, please try again{" "}
+              </>
+            )}
           </DialogContentText>
           {logInForm}
         </DialogContent>

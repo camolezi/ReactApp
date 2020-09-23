@@ -14,7 +14,7 @@ import LoginView from "../Views/ModalViews/LoginView.js";
 
 import { Link as RouterLink } from "react-router-dom";
 
-import { selectToken, selectUsername } from "../Store/Slices/loginSlice.js";
+import { selectUsername } from "../Store/Slices/loginSlice.js";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({

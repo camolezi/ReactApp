@@ -17,7 +17,6 @@ function JSONForm(props) {
 
   function submitForm(e) {
     e.preventDefault();
-
     console.log(JSON.stringify(formState));
 
     setSubmitted(true);
@@ -37,10 +36,13 @@ function JSONForm(props) {
         return response.json();
       })
       .then((obj) => {
+        setSubmitted(false);
         if (props.afterSubmit) props.afterSubmit(true, obj);
+
         console.log(obj);
       })
       .catch((error) => {
+        setSubmitted(false);
         if (props.afterSubmit) props.afterSubmit(false);
         console.error("Error:", error);
       });

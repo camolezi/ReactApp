@@ -6,6 +6,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 import LoadingCircle from "../Components/LoadingCircle.js";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPost,
+  selectFetchStatus,
+  selectPosts,
+} from "../Store/Slices/postSlice.js";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,25 +34,23 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePostsView(props) {
   const classes = useStyles();
+  const url = `/post/`;
+  const dispatch = useDispatch();
 
-  let url = `/post/`;
-  let returnJSX;
-
-  const [posts, setPosts] = useState(null);
-
+  const fetchStatus = useSelector(selectFetchStatus);
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.log("Error in request Json:" + err));
+    if (fetchStatus === "idle") {
+      dispatch(fetchPost());
+    }
   }, [url]);
 
+  const posts = useSelector(selectPosts);
   //Posts loaded
-  if (posts) {
+  if (fetchStatus === "ok") {
     let postsComponents = posts.map((post) => (
       <Grid key={post.id} item className={classes.card} zeroMinWidth xs={12}>
         <Link to={`post/${post.id}`} className={classes.link}>
-          <Post id={post.id} title={post.title} body={post.body} />
+          <Post {...post} />
         </Link>
       </Grid>
     ));

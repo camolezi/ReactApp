@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-
   const CreatePostButton = WithIsLogged(EditPostFloatingButton);
 
   return (

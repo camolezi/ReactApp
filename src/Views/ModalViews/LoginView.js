@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JSONForm from "../../Components/JSONForm.js";
 
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import {
   Button,
@@ -22,8 +22,9 @@ import { useDispatch } from "react-redux";
 function LoginView(props) {
   const [open, setOpen] = useState(false);
   const [statusFailed, setStatusFailed] = useState(false);
-  const [finished, setFinished] = useState(false);
   const dispatch = useDispatch();
+
+  const routerhistory = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,9 +40,9 @@ function LoginView(props) {
       url="/login"
       afterSubmit={(ok, data) => {
         if (ok) {
-          setFinished(true);
           dispatch(updateToken(data.acessToken));
           dispatch(updateUsername(data.login));
+          routerhistory.push("/post");
           return;
         }
         setStatusFailed(true);

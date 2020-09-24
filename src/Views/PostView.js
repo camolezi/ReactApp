@@ -2,28 +2,34 @@ import React, { useEffect, useState } from "react";
 import Post from "../Components/Post.js";
 import { useParams } from "react-router-dom";
 
+import { selectPost } from "../Store/Slices/postSlice.js";
+import { useSelector } from "react-redux";
+
+import LoadingCircle from "../Components/LoadingCircle.js";
+
 function PostView(props) {
-  let { id } = useParams();
-  let url = `/post/${id}`;
-  let returnJSX;
+  const { id } = useParams();
+  const url = `/post/${id}`;
 
   const [post, setPost] = useState(null);
-
+  const cachedPost = useSelector(selectPost(id));
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => setPost(data))
-      .catch((err) => console.log("Error in request Json"));
+    if (!cachedPost) {
+      console.log(cachedPost);
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => setPost(data))
+        .catch((err) => console.log("Error in request Json"));
+    } else {
+      setPost(cachedPost);
+    }
   }, [url]);
 
   if (post) {
-    returnJSX = <Post id={id} title={post.title} body={post.body} />;
-  } else {
-    //Can put a load image here
-    returnJSX = <h1>Loading</h1>;
+    return <Post {...post} />;
   }
 
-  return returnJSX;
+  return <LoadingCircle />;
 }
 
 export default PostView;

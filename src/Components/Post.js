@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardActionArea,
+  CardHeader,
   Typography,
 } from "@material-ui/core";
 
@@ -17,21 +18,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/*
+        "id": 46,
+        "title": "yep this is a post",
+        "createdAt": "2020-09-23T19:06:00.348117Z",
+        "userLogin": "admin",
+        "body": "this is a post"
+
+
+*/
+
 function Post(props) {
   const classes = useStyles();
   return (
-    <Card>
-      <CardActionArea className={classes.cardArea}>
-        <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            {props.title} id: {props.id}
-            askjdahsjkdhsstretch
-          </Typography>
-          <Typography color="textSecondary" gutterBottom>
-            {props.body}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+    <Card className={classes.cardArea}>
+      <CardHeader
+        title={props.title}
+        subheader={
+          "posted by " + props.userLogin + "        at " + props.createdAt
+        }
+      />
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          {props.body}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }

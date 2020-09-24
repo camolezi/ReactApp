@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, TextField, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import JSONForm from "../Components/JSONForm.js";
 import WithAuthorization from "../Components/Middleware/Authorization.js";
@@ -88,11 +88,18 @@ function CreatePostView(props) {
   );
 
   const FormWithAuth = WithAuthorization(JSONForm);
+  const history = useHistory();
 
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
-        <FormWithAuth id="postForm" url="/post">
+        <FormWithAuth
+          id="postForm"
+          url="/post"
+          afterSubmit={(ok) => {
+            if (ok) history.push("/post");
+          }}
+        >
           {PostForm}
         </FormWithAuth>
       </div>
